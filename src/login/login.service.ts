@@ -14,7 +14,7 @@ export class LoginService {
         if (!exists) {
             return { error: 'Incorrect username or password.' };
         }
-
+        
         let token: string;
         try {
             token = await this.authService.signIn(name, password);

@@ -8,7 +8,7 @@ export class UsersService {
         return await User.findAll();
     }
 
-    async addUser(soldier: any) {
+    async addUser(soldier: RegisterDto) {
         return await User.create(soldier);
     }
 

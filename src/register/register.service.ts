@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class RegisterService {
@@ -14,8 +15,12 @@ export class RegisterService {
     if (exists) {
       return { error: 'Username already exists.' };
     }
-    // const newSoldier = { ...body, role: "soldier" }
-    this.usersService.addUser(body);
+    const hash = await bcrypt.hash(body.password, 10);    
+    const newSoldier = { name: body.name, password: hash }
+    if (body.email) {
+      newSoldier['email'] = body.email
+    }
+    this.usersService.addUser(newSoldier);
     return { message: 'User registered', user: body.name };
   }
 }

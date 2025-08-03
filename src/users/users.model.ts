@@ -4,7 +4,7 @@ export interface UserAttributes {
     name: string;
     email?: string;
     password: string;
-    role: string,
+    role?: string,
     createdAt?: Date;
 }
 
@@ -21,11 +21,6 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 export const initUserModel = (sequelize: Sequelize): typeof User => {
     User.init(
         {
-            // id: {
-            //     type: DataTypes.INTEGER,
-            //     autoIncrement: true,
-            //     primaryKey: true,
-            // },
             name: {
                 type: DataTypes.STRING,
                 unique: true,
@@ -48,9 +43,8 @@ export const initUserModel = (sequelize: Sequelize): typeof User => {
         },
         {
             sequelize,
-            tableName: 'nestProject',
+            tableName: 'usersProject',
             timestamps: true,
-            // createdAt: false,
             updatedAt: false
         }
     );

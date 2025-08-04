@@ -1,7 +1,6 @@
 import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { Request } from 'express';
 import { Roles } from 'src/auth/roles.decorator';
 
 @Controller('users')
@@ -15,10 +14,10 @@ export class UsersController {
     }
 
     @UseGuards(AuthGuard)
-    @Roles('soldier', 'commander')
+    @Roles('soldier')
     @Get('me')
-    getMyProfile(@Req() req: Request) {
-        return { message: 'This is your profile' };
+    getMyProfile() {
+        return { message: 'This is your profile private' };
     }
 
     @Get('public')
@@ -26,8 +25,4 @@ export class UsersController {
         return { message: 'Public access' };
     }
 
-    // @Post
-    // addUser() {
-    //     this.usersService.addUser(solider : RegisterDto);
-    // }
 }

@@ -1,6 +1,7 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Sequelize } from 'sequelize';
 import { initUserModel } from '../users/users.model';
+import { initShiftModel } from 'src/shifts/shifts.model';
 
 @Injectable()
 export class DbService implements OnModuleInit, OnModuleDestroy {
@@ -18,6 +19,7 @@ export class DbService implements OnModuleInit, OnModuleDestroy {
             logging: false,
         });
         initUserModel(this.sequelize);
+        initShiftModel(this.sequelize);
     }
 
     async onModuleInit() {
